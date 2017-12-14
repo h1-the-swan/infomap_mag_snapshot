@@ -1,0 +1,3 @@
+[submodule "infomap"]
+	path = infomap
+	url = git@github.com:mapequation/infomap.git
