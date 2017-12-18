@@ -1,5 +1,7 @@
 -e git+git@github.com:h1-the-swan/rec_utilities.git@eb5bd099ba1c1a96be0f7b06707e8c804ca50a6f#egg=babel_util
 decorator==4.1.2
+humanfriendly==4.4.1
+monotonic==1.4
 networkx==2.0
 numpy==1.13.3
 scipy==1.0.0
