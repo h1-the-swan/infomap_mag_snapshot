@@ -1,0 +1,5 @@
+2017-12-18 11:59
+nohup ~/code/RelaxMap/ompRelaxmap 999 ~/code/infomap_mag_snapshot/data/PaperReferences_20171218.net 15 1 1e-4 0.0 10 ~/code/infomap_mag_snapshot/data prior >& relaxmap_20171218.log &
+
+using 15 threads
+see RelaxMap readme for what the options mean

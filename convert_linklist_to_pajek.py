@@ -31,7 +31,7 @@ def parse_edgelist(fname, sep='\t', header=True, temp_dir=None):
     """
     pjk = PajekFactory(temp_dir=temp_dir)
     rownum = 0
-    with open(args.input, 'r') as f:
+    with open(fname, 'r') as f:
         for i, line in enumerate(f):
             if header is True and i == 0:
                 continue
@@ -60,7 +60,8 @@ def main(args):
 
     start = timer()
     logger.debug("parsing the edgelist...")
-    pjk = parse_edgelist(fname, header=True, temp_dir=args.temp_dir)
+    header = not args.no_header
+    pjk = parse_edgelist(fname, header=header, temp_dir=args.temp_dir)
     logger.debug("done reading edgelist. {}".format(timer()-start))
 
     start = timer()
@@ -83,6 +84,7 @@ if __name__ == "__main__":
     parser.add_argument("--vertices-label", default=DEFAULTS['VERTICES_LABEL'], help="label for the vertices section (default: {})".format(DEFAULTS['VERTICES_LABEL']))
     parser.add_argument("--edges-label", default=DEFAULTS['EDGES_LABEL'], help="label for the edges section (note:directed graphs should use 'Arcs', undirected graphs should use 'Edges') (default: {})".format(DEFAULTS['VERTICES_LABEL']))
     parser.add_argument("--temp-dir", help="directory to store temporary files", default=None)
+    parser.add_argument("--no-header", action='store_true', help="specifies that there is no header row in the input file")
     parser.add_argument("--debug", action='store_true', help="output debugging info")
     global args
     args = parser.parse_args()
