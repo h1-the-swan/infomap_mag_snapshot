@@ -38,7 +38,7 @@ def main(args):
     
     start = timer()
     logger.debug("getting top-level cluster counts for treefile {} (already parsed)".format(fname))
-    counts = treefile.top_cluster_counts()
+    counts = treefile.get_top_cluster_counts()
     logger.debug("done getting top-level cluster counts for treefile {}. {}".format(fname, format_timespan(timer()-start)))
 
     start = timer()

@@ -1,6 +1,6 @@
 -e git://github.com/h1-the-swan/rec_utilities@eb5bd099ba1c1a96be0f7b06707e8c804ca50a6f#egg=babel_util
 decorator==4.1.2
--e git://github.com/h1-the-swan/h1theswan_utils.git@2971f47325505a35136a19ae04b01359c545b2db#egg=h1theswan_utils
+-e git://github.com/h1-the-swan/h1theswan_utils.git@4db25373e894c8563e06cc5694dabf1cdc040995#egg=h1theswan_utils
 humanfriendly==4.4.1
 monotonic==1.4
 networkx==2.0
