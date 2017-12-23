@@ -39,7 +39,7 @@ def main(args):
     log_fname = os.path.join(DEFAULTS['LOG_DIR'], "{}.log".format(output_basename))
     log_fname = os.path.abspath(log_fname)
     log_f = open(log_fname, 'w')
-    cmd = [DEFAULTS['PATH_TO_INFOMAP'], pjk_fname, DEFAULTS['INFOMAP_OUTDIR'], '-t', '-vvv']
+    cmd = [DEFAULTS['PATH_TO_INFOMAP'], pjk_fname, DEFAULTS['INFOMAP_OUTDIR'], '-t', '-vvv', '--seed 999']
     logger.debug("running Infomap on file {}. outputting to directory: {}. logging stdout and stderr to {}".format(cmd[1], cmd[2], log_fname))
     completed_process = subprocess.run(cmd, stdout=log_f, stderr=subprocess.STDOUT)
 
