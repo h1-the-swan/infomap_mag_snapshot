@@ -6,4 +6,4 @@ data/
 .ipynb_checkpoints/
 src/
 logs/
-*tasklist*
+*tasklist*.txt

@@ -36,7 +36,7 @@ def main(args):
     extract_subgraph_write_pajek(args)
     pjk_fname = os.path.abspath(args.output)
     output_basename = get_basename(pjk_fname)
-    log_fname = os.path.join(DEFAULTS['LOG_DIR'], "{}.log".format(output_basename))
+    log_fname = os.path.join(args.log_dir, "infomap_{}.log".format(output_basename))
     log_fname = os.path.abspath(log_fname)
     log_f = open(log_fname, 'w')
     cmd = [DEFAULTS['PATH_TO_INFOMAP'], pjk_fname, DEFAULTS['INFOMAP_OUTDIR'], '-t', '-vvv', '--seed 999']
@@ -59,6 +59,7 @@ if __name__ == "__main__":
     parser.add_argument("--sep", default='\t', help="row delimiter for the input file (default: tab)")
     parser.add_argument("--vertices-label", default=DEFAULTS['VERTICES_LABEL'], help="label for the vertices section (default: {})".format(DEFAULTS['VERTICES_LABEL']))
     parser.add_argument("--edges-label", default=DEFAULTS['EDGES_LABEL'], help="label for the edges section (note:directed graphs should use 'Arcs', undirected graphs should use 'Edges') (default: {})".format(DEFAULTS['VERTICES_LABEL']))
+    parser.add_argument("--log-dir", default=DEFAULTS['LOG_DIR'], help="log directory (default: {})".format(DEFAULTS['LOG_DIR']))
     parser.add_argument("--temp-dir", help="directory to store temporary files", default=None)
     parser.add_argument("--no-header", action='store_true', help="specifies that there is no header row in the input file")
     parser.add_argument("--debug", action='store_true', help="output debugging info")
