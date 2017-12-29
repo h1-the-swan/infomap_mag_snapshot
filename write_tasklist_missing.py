@@ -17,11 +17,12 @@ logger = logging.getLogger('__main__').getChild(__name__)
 
 # SUBSET_LABEL = '60000-69999'
 MISSING_INDICES_FNAME = '/gscratch/stf/jporteno/code/infomap_mag_snapshot/missing_indices_20171228.txt'
+CLUSTERS_BASEDIR = '/gscratch/stf/jporteno/mag_20171110/cluster_nodelists'
 # SUBSET_DIRNAME = os.path.join('/gscratch/stf/jporteno/mag_20171110/cluster_nodelists', SUBSET_LABEL)
 EDGELIST_FNAME = '/gscratch/stf/jporteno/mag_20171110/PaperReferences_academicgraphdls_20171110.txt'
 REPO_DIRNAME = '/gscratch/stf/jporteno/code/infomap_mag_snapshot/'
 # LOG_DIR = os.path.join(REPO_DIRNAME, 'logs', 'logs_{}'.format(SUBSET_LABEL))
-LOG_DIR = os.path.join(REPO_DIRNAME, 'logs', 'logs_missing'.format(SUBSET_LABEL))
+LOG_DIR = os.path.join(REPO_DIRNAME, 'logs', 'logs_missing')
 
 def get_basename(fname):
     b = os.path.basename(fname)
@@ -58,7 +59,7 @@ def output_line_for_one_input_file(input_fname):
 #     fnames = [os.path.abspath(x) for x in fnames]
 #     return fnames
 
-def get_missing_input_filenames(missing_indices_fname):
+def get_missing_input_filenames(missing_indices_fname, clusters_basedir):
     missing_indices = []
     with open(missing_indices_fname, 'r') as f:
         for line in f:
@@ -66,11 +67,14 @@ def get_missing_input_filenames(missing_indices_fname):
             this_idx = int(line)
             this_idx = "{:05d}".format(this_idx)
             missing_indices.append(this_idx)
-
-
+    for base, dirs, files in os.walk(clusters_basedir):
+        for fname in files:
+            if fname[:5] in missing_indices:
+                fpath = os.path.join(base, fname)
+                yield fpath
 
 def main(args):
-    input_filenames = get_missing_input_filenames(MISSING_INDICES_FNAME)
+    input_filenames = list(get_missing_input_filenames(MISSING_INDICES_FNAME, CLUSTERS_BASEDIR))
     outf_number = 0
     while True:
         outfname = 'extract_and_infomap_tasklist_{:03d}.txt'.format(outf_number)
