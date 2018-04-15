@@ -14,38 +14,13 @@ logging.basicConfig(format='%(asctime)s %(name)s.%(lineno)d %(levelname)s : %(me
 # logger = logging.getLogger(__name__)
 logger = logging.getLogger('__main__').getChild(__name__)
 
-from babel_util.util.PajekFactory import PajekFactory
+from h1theswan_utils.network_data import edgelist_to_pajek
 
 DEFAULTS = {
     'VERTICES_LABEL': 'Vertices',
     'EDGES_LABEL': 'Arcs'
 }
 
-def parse_edgelist(fname, sep='\t', header=True, temp_dir=None):
-    """TODO: Docstring for parse_edgelist.
-
-    :fname: TODO
-    :sep: TODO
-    :returns: PajekFactory object
-
-    """
-    pjk = PajekFactory(temp_dir=temp_dir)
-    rownum = 0
-    with open(fname, 'r') as f:
-        for i, line in enumerate(f):
-            if header is True and i == 0:
-                continue
-            split = line.strip().split(sep)
-            pjk.add_edge(split[0], split[1])
-            rownum += 1
-            if (rownum in [1,5,10,50,100,1000,10000,100000,1e6,10e6] or (rownum % 50e6 == 0)):
-                logger.debug('{} edges added'.format(rownum))
-    return pjk
-
-    #
-    # logger.info('writing to file {}'.format(args.outfile))
-    # with open(args.outfile, 'w') as outf:
-    #     pjk.write(outf)
 def main(args):
     fname = os.path.abspath(args.input)
     logger.debug("using input file: {}".format(fname))
@@ -61,7 +36,8 @@ def main(args):
     start = timer()
     logger.debug("parsing the edgelist...")
     header = not args.no_header
-    pjk = parse_edgelist(fname, header=header, temp_dir=args.temp_dir)
+    # pjk = parse_edgelist(fname, header=header, temp_dir=args.temp_dir)
+    pjk = edgelist_to_pajek(fname, sep=args.sep, header=header, temp_dir=args.temp_dir, weighted=False)
     logger.debug("done reading edgelist. {}".format(timer()-start))
 
     start = timer()
